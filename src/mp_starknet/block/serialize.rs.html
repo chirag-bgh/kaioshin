@@ -135,6 +135,7 @@
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
 <a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
 </pre><pre class="rust"><code><span class="kw">use </span>blockifier::block_context::BlockContext;
 <span class="kw">use </span>starknet_api::api_core::{ChainId, ContractAddress};
 <span class="kw">use </span>starknet_api::block::{BlockNumber, BlockTimestamp};
@@ -143,7 +144,7 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::alloc::string::ToString;
 <span class="kw">use </span><span class="kw">crate</span>::block::header::Header;
-<span class="kw">use </span><span class="kw">crate</span>::execution::ContractAddressWrapper;
+<span class="kw">use </span><span class="kw">crate</span>::execution::types::ContractAddressWrapper;
 
 <span class="doccomment">/// Trait for serializing objects into a `BlockContext`.
 </span><span class="kw">pub trait </span>SerializeBlockContext {
@@ -199,11 +200,12 @@
             block_number: BlockNumber(block_header.block_number.as_u64()),
             block_timestamp: BlockTimestamp(block_header.block_timestamp),
             sequencer_address,
-            cairo_resource_fee_weights: HashMap::default(),
+            vm_resource_fee_cost: HashMap::default(),
             fee_token_address,
             invoke_tx_max_n_steps: <span class="number">1000000</span>,
             validate_max_n_steps: <span class="number">1000000</span>,
-            gas_price: <span class="number">0</span>,
+            <span class="comment">// FIXME: https://github.com/keep-starknet-strange/madara/issues/329
+            </span>gas_price: <span class="number">10</span>,
         })
     }
 }
